@@ -4,7 +4,7 @@ class WeatherDisplay extends Component {
   state = {};
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <div className="jumbotron">
           <p>
             <strong>City: </strong>

@@ -1,22 +1,10 @@
-.App {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-}
-
 .display-component {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .form-component {
-  margin-top: 30px;
-}
-
-.jumbotron {
-  width: 80%;
-}
-
-.form {
-  padding-left: 15px;
+  padding-top: 15px;
+  padding-right: 15px;
 }
 
 input {
@@ -25,4 +13,17 @@ input {
   padding-left: 5px;
   padding-bottom: 5px;
   min-height: 32px;
+}
+
+@media (max-width: 420px) {
+  .form {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 80%;
+    margin-right: auto;
+    padding-left: 15px;
+  }
+  button {
+    max-width: 120px;
+  }
 }

@@ -22,18 +22,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App container-fluid">
-        <Header />
-        <div className="content">
-          <div className="form-component">
-            <Form fetchData={this.fetchData} />
-          </div>
-          <div className="display-component">
-            <WeatherDisplay
-              city={this.state.city}
-              country={this.state.country}
-            />
-          </div>
+      <div className="App">
+        <div className="form-component bg-dark text-right">
+          <Form fetchData={this.fetchData} />
+        </div>
+        <div className="header-component container">
+          <Header />
+        </div>
+        <div className="display-component container">
+          <WeatherDisplay city={this.state.city} country={this.state.country} />
         </div>
       </div>
     );
