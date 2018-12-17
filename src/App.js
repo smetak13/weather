@@ -11,21 +11,26 @@ class App extends Component {
     country: undefined
   };
 
-  fetchData = e => {
+  getData = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
-    this.setState({
-      city,
-      country
-    });
+    this.componentDidMount(city, country);
   };
+
+  componentDidMount(city, country) {
+    const API_KEY = "68b31310b79d9990a172d5a08816b154";
+    const link = `api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${API_KEY}`;
+    fetch(link)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
 
   render() {
     return (
       <div className="App">
         <div className="form-component bg-dark text-right">
-          <Form fetchData={this.fetchData} />
+          <Form getData={this.getData} />
         </div>
         <div className="header-component container">
           <Header />

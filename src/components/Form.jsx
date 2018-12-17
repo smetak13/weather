@@ -4,7 +4,7 @@ class Form extends Component {
   render() {
     return (
       <div>
-        <form className="form" onSubmit={this.props.fetchData}>
+        <form className="form" onSubmit={this.props.getData}>
           <input
             className="m-1"
             type="text"
