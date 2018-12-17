@@ -1,3 +1,11 @@
+.App {
+  height: 100vh;
+}
+
+.jumbotron {
+  min-height: 60vh;
+}
+
 .display-component {
   margin-top: 20px;
 }
