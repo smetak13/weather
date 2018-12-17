@@ -3,6 +3,7 @@ import "./App.css";
 import Form from "./components/Form";
 import Header from "./components/Header";
 import WeatherDisplay from "./components/WeatherDisplay";
+import Footer from "./components/Footer";
 
 class App extends Component {
   state = {
@@ -31,6 +32,9 @@ class App extends Component {
         </div>
         <div className="display-component container">
           <WeatherDisplay city={this.state.city} country={this.state.country} />
+        </div>
+        <div className="footer-component fixed-bottom bg-dark text-right">
+          <Footer />
         </div>
       </div>
     );
