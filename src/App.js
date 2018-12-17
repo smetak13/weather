@@ -15,10 +15,10 @@ class App extends Component {
     e.preventDefault();
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
-    this.componentDidMount(city, country);
+    this.fetchData(city, country);
   };
 
-  componentDidMount(city, country) {
+  fetchData(city, country) {
     const API_KEY = "68b31310b79d9990a172d5a08816b154";
     const link = `api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${API_KEY}`;
     fetch(link)
