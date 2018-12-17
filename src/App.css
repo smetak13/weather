@@ -1,0 +1,28 @@
+.App {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+}
+
+.display-component {
+  margin-top: 40px;
+}
+
+.form-component {
+  margin-top: 30px;
+}
+
+.jumbotron {
+  width: 80%;
+}
+
+.form {
+  padding-left: 15px;
+}
+
+input {
+  border-radius: 5px;
+  border: 1px solid rgb(199, 196, 196);
+  padding-left: 5px;
+  padding-bottom: 5px;
+  min-height: 32px;
+}
