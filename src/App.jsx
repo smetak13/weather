@@ -67,7 +67,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.backgroundImgUrl);
     return (
       <div
         className="App bg-dark"
