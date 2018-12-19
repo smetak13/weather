@@ -61,6 +61,9 @@ class App extends Component {
 
   componentDidMount() {
     this.changeBackground();
+    setInterval(() => {
+      this.changeBackground();
+    }, 5000);
   }
 
   render() {
@@ -70,7 +73,8 @@ class App extends Component {
         className="App"
         style={{
           backgroundImage: this.state.backgroundImgUrl,
-          backgroundSize: "cover"
+          backgroundSize: "cover",
+          transition: "3s"
         }}
       >
         <div className="form-component bg-dark text-right">

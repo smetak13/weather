@@ -13,6 +13,6 @@ function createBackgrounds() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", createBackgrounds());
+createBackgrounds();
 
 export default backgrounds;
