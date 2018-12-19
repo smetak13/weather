@@ -11,12 +11,6 @@ class Form extends Component {
             name="city"
             placeholder="City..."
           />
-          <input
-            className="m-1"
-            type="text"
-            name="country"
-            placeholder="Country..."
-          />
           <button className="btn btn-sm btn-secondary m-2">Get Weather</button>
         </form>
         <hr />
