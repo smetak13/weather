@@ -63,14 +63,14 @@ class App extends Component {
     this.changeBackground();
     setInterval(() => {
       this.changeBackground();
-    }, 5000);
+    }, 20000);
   }
 
   render() {
     console.log(this.state.backgroundImgUrl);
     return (
       <div
-        className="App"
+        className="App bg-dark"
         style={{
           backgroundImage: this.state.backgroundImgUrl,
           backgroundSize: "cover",
