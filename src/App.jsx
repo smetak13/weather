@@ -63,7 +63,7 @@ class App extends Component {
     this.changeBackground();
     setInterval(() => {
       this.changeBackground();
-    }, 15000);
+    }, 10000);
   }
 
   render() {
