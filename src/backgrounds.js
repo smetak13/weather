@@ -8,7 +8,7 @@ class Background {
 }
 
 function createBackgrounds() {
-  for (let i = 1; i <= 19; i++) {
+  for (let i = 1; i <= 35; i++) {
     backgrounds.push(new Background(i, "assets/img/" + i + ".jpg"));
   }
 }
