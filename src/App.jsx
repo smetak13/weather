@@ -74,7 +74,7 @@ class App extends Component {
         style={{
           backgroundImage: backgroundImgUrl,
           backgroundSize: "cover",
-          transition: "3s"
+          transition: "4s"
         }}
       >
         <div className="form-component bg-dark text-right">
