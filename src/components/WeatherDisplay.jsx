@@ -2,7 +2,17 @@ import React, { Component } from "react";
 
 class WeatherDisplay extends Component {
   render() {
-    if (this.props.weatherData.city === undefined)
+    const {
+      city,
+      country,
+      temperature,
+      feelslike,
+      condition,
+      humidity,
+      wind,
+      lastUpdated
+    } = this.props.weatherData;
+    if (city === undefined)
       return (
         <div className="jumbo">
           <h4 className="text-center" style={{ color: "red" }}>
@@ -15,35 +25,35 @@ class WeatherDisplay extends Component {
         <div className="jumbo">
           <p>
             <strong>City: </strong>
-            {this.props.weatherData.city}
+            {city}
           </p>
           <p>
             <strong>Country: </strong>
-            {this.props.weatherData.country}
+            {country}
           </p>
           <p>
             <strong>Temperature: </strong>
-            {this.props.weatherData.temperature}°C
+            {temperature}°C
           </p>
           <p>
             <strong>Feels like: </strong>
-            {this.props.weatherData.feelslike}°C
+            {feelslike}°C
           </p>
           <p>
             <strong>Condition: </strong>
-            {this.props.weatherData.condition}
+            {condition}
           </p>
           <p>
             <strong>Humidity: </strong>
-            {this.props.weatherData.humidity}%
+            {humidity}%
           </p>
           <p>
             <strong>Wind: </strong>
-            {this.props.weatherData.wind} km/h
+            {wind} km/h
           </p>
           <p>
             <strong>Last Updated: </strong>
-            {this.props.weatherData.lastUpdated}
+            {lastUpdated}
           </p>
         </div>
       </div>

@@ -63,15 +63,16 @@ class App extends Component {
     this.changeBackground();
     setInterval(() => {
       this.changeBackground();
-    }, 20000);
+    }, 10000);
   }
 
   render() {
+    const { backgroundImgUrl, weatherData } = this.state;
     return (
       <div
         className="App bg-dark"
         style={{
-          backgroundImage: this.state.backgroundImgUrl,
+          backgroundImage: backgroundImgUrl,
           backgroundSize: "cover",
           transition: "3s"
         }}
@@ -80,7 +81,7 @@ class App extends Component {
           <Form getData={this.getData} />
         </div>
         <div className="display-component container">
-          <WeatherDisplay weatherData={this.state.weatherData} />
+          <WeatherDisplay weatherData={weatherData} />
         </div>
         <div className="footer-component fixed-bottom bg-dark text-right">
           <Footer />
