@@ -17,19 +17,17 @@ class WeatherDisplay extends Component {
     const { fetchError, errorMessage, wasCityFound } = this.props;
     if (fetchError)
       return (
-        <div className="jumbo">
+        <div className="jumbo-error">
           <h4 className="text-center" style={{ color: "red" }}>
             {errorMessage}
           </h4>
           <br />
-          <h5 className="text-center" style={{ color: "red" }}>
-            Check your internet connection!
-          </h5>
+          <h5 className="text-center">Check your internet connection!</h5>
         </div>
       );
     else if (!wasCityFound)
       return (
-        <div className="jumbo">
+        <div className="jumbo-error">
           <h4 className="text-center" style={{ color: "red" }}>
             City was not found.
           </h4>

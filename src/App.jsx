@@ -18,6 +18,7 @@ class App extends Component {
       wind: 15,
       lastUpdated: "2018-12-30 13:00"
     },
+    forecastData: {},
     backgrounds,
     backgroundImgUrl: "",
     fetchError: false,
@@ -56,7 +57,8 @@ class App extends Component {
               humidity: currentWeather.current.humidity,
               wind: currentWeather.current.wind_kph,
               lastUpdated: currentWeather.current.last_updated
-            }
+            },
+            forecastData: { forecast }
           });
       })
       .catch(error => {
