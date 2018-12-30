@@ -7,17 +7,7 @@ import backgrounds from "./backgrounds";
 
 class App extends Component {
   state = {
-    weatherData: {
-      city: "Praha",
-      country: "Czech Republic",
-      temperature: 10,
-      feelslike: 8,
-      condition: "Slight rain",
-      conditionImg: "",
-      humidity: 80,
-      wind: 15,
-      lastUpdated: "2018-12-30 13:00"
-    },
+    weatherData: {},
     forecastData: {},
     backgrounds,
     backgroundImgUrl: "",
@@ -38,28 +28,29 @@ class App extends Component {
     const link = `http://api.apixu.com/v1/current.json?key=${API_KEY}&q=${city}`;
     const link2 = `http://api.apixu.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=${FORECAST_DAYS}`;
     Promise.all([fetch(link), fetch(link2)])
-      .then(allResponses => allResponses.forEach(response => response.json()))
-      .then(data => {
-        const currentWeather = data[0];
-        const forecast = data[1];
+      .then(values => {
         this.setState({ fetchError: false, wasCityFound: true });
-        if (currentWeather.location === undefined)
-          return this.setState({ wasCityFound: false });
-        else
-          return this.setState({
-            weatherData: {
-              city: currentWeather.location.name,
-              country: currentWeather.location.country,
-              temperature: currentWeather.current.temp_c,
-              feelslike: currentWeather.current.feelslike_c,
-              condition: currentWeather.current.condition.text,
-              conditionImg: currentWeather.current.condition.icon,
-              humidity: currentWeather.current.humidity,
-              wind: currentWeather.current.wind_kph,
-              lastUpdated: currentWeather.current.last_updated
-            },
-            forecastData: { forecast }
-          });
+        values[0].json().then(data => {
+          if (data.location === undefined)
+            return this.setState({ wasCityFound: false });
+          else
+            return this.setState({
+              weatherData: {
+                city: data.location.name,
+                country: data.location.country,
+                temperature: data.current.temp_c,
+                feelslike: data.current.feelslike_c,
+                condition: data.current.condition.text,
+                conditionImg: data.current.condition.icon,
+                humidity: data.current.humidity,
+                wind: data.current.wind_kph,
+                lastUpdated: data.current.last_updated
+              }
+            });
+        });
+        values[1].json().then(data => {
+          this.setState({ forecastData: data });
+        });
       })
       .catch(error => {
         return this.setState({
@@ -94,10 +85,13 @@ class App extends Component {
     const {
       backgroundImgUrl,
       weatherData,
+      forecastData,
       fetchError,
       errorMessage,
       wasCityFound
     } = this.state;
+    console.log(weatherData);
+    console.log(forecastData);
     return (
       <div
         className="App bg-dark"

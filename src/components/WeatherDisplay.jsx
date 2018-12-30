@@ -42,7 +42,7 @@ class WeatherDisplay extends Component {
             </h5>
             <p className="text-center">{fullDate}</p>
             <h2 className="display-4 text-center">
-              {conditionImg}{" "}
+              <img src={conditionImg} alt="" />
               <strong>
                 {temperature}°<span>c</span>
               </strong>
