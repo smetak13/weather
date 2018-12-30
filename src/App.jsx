@@ -7,13 +7,12 @@ import backgrounds from "./backgrounds";
 
 class App extends Component {
   state = {
-    weatherData: {
-      city: null
-    },
+    weatherData: {},
     backgrounds,
     backgroundImgUrl: "",
     fetchError: false,
-    errorMessage: undefined
+    errorMessage: undefined,
+    wasCityFound: true
   };
 
   getData = e => {
@@ -28,9 +27,9 @@ class App extends Component {
     fetch(link)
       .then(response => response.json())
       .then(data => {
-        this.setState({ fetchError: false });
+        this.setState({ fetchError: false, wasCityFound: true });
         if (data.location === undefined)
-          return this.setState({ weatherData: { city: undefined } });
+          return this.setState({ wasCityFound: false });
         else
           return this.setState({
             weatherData: {
@@ -80,7 +79,8 @@ class App extends Component {
       backgroundImgUrl,
       weatherData,
       fetchError,
-      errorMessage
+      errorMessage,
+      wasCityFound
     } = this.state;
     return (
       <div
@@ -99,6 +99,7 @@ class App extends Component {
             weatherData={weatherData}
             fetchError={fetchError}
             errorMessage={errorMessage}
+            wasCityFound={wasCityFound}
           />
         </div>
         <div className="footer-component fixed-bottom bg-dark text-right">

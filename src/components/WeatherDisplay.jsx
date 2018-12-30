@@ -12,7 +12,7 @@ class WeatherDisplay extends Component {
       wind,
       lastUpdated
     } = this.props.weatherData;
-    const { fetchError, errorMessage } = this.props;
+    const { fetchError, errorMessage, wasCityFound } = this.props;
     if (fetchError)
       return (
         <div className="jumbo">
@@ -25,7 +25,7 @@ class WeatherDisplay extends Component {
           </h5>
         </div>
       );
-    else if (city === undefined)
+    else if (!wasCityFound)
       return (
         <div className="jumbo">
           <h4 className="text-center" style={{ color: "red" }}>
