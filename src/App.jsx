@@ -28,6 +28,7 @@ class App extends Component {
     fetch(link)
       .then(response => response.json())
       .then(data => {
+        this.setState({ fetchError: false });
         if (data.location === undefined)
           return this.setState({ weatherData: { city: undefined } });
         else
