@@ -11,7 +11,9 @@ class App extends Component {
       city: null
     },
     backgrounds,
-    backgroundImgUrl: ""
+    backgroundImgUrl: "",
+    fetchError: false,
+    errorMessage: undefined
   };
 
   getData = e => {
@@ -42,6 +44,12 @@ class App extends Component {
               lastUpdated: data.current.last_updated
             }
           });
+      })
+      .catch(error => {
+        return this.setState({
+          fetchError: true,
+          errorMessage: error.message
+        });
       });
   }
 
@@ -67,7 +75,12 @@ class App extends Component {
   }
 
   render() {
-    const { backgroundImgUrl, weatherData } = this.state;
+    const {
+      backgroundImgUrl,
+      weatherData,
+      fetchError,
+      errorMessage
+    } = this.state;
     return (
       <div
         className="App bg-dark"
@@ -81,7 +94,11 @@ class App extends Component {
           <Form getData={this.getData} />
         </div>
         <div className="display-component container">
-          <WeatherDisplay weatherData={weatherData} />
+          <WeatherDisplay
+            weatherData={weatherData}
+            fetchError={fetchError}
+            errorMessage={errorMessage}
+          />
         </div>
         <div className="footer-component fixed-bottom bg-dark text-right">
           <Footer />

@@ -12,6 +12,19 @@ class WeatherDisplay extends Component {
       wind,
       lastUpdated
     } = this.props.weatherData;
+    const { fetchError, errorMessage } = this.props;
+    if (fetchError)
+      return (
+        <div className="jumbo">
+          <h4 className="text-center" style={{ color: "red" }}>
+            {errorMessage}
+          </h4>
+          <br />
+          <h5 className="text-center" style={{ color: "red" }}>
+            Check your internet connection!
+          </h5>
+        </div>
+      );
     if (city === undefined)
       return (
         <div className="jumbo">
