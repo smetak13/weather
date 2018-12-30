@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import fullDate from "../date";
 
 class WeatherDisplay extends Component {
   render() {
@@ -8,6 +9,7 @@ class WeatherDisplay extends Component {
       temperature,
       feelslike,
       condition,
+      conditionImg,
       humidity,
       wind,
       lastUpdated
@@ -37,38 +39,46 @@ class WeatherDisplay extends Component {
       return (
         <div>
           <div className="jumbo">
-            <p>
-              <strong>City: </strong>
-              {city}
-            </p>
-            <p>
-              <strong>Country: </strong>
-              {country}
-            </p>
-            <p>
-              <strong>Temperature: </strong>
-              {temperature}°C
-            </p>
-            <p>
-              <strong>Feels like: </strong>
-              {feelslike}°C
-            </p>
-            <p>
-              <strong>Condition: </strong>
-              {condition}
-            </p>
-            <p>
-              <strong>Humidity: </strong>
-              {humidity}%
-            </p>
-            <p>
-              <strong>Wind: </strong>
-              {wind} km/h
-            </p>
-            <p>
-              <strong>Last Updated: </strong>
-              {lastUpdated}
-            </p>
+            <h5 className="text-center">
+              {city} <small> - {country}</small>
+            </h5>
+            <p className="text-center">{fullDate}</p>
+            <h2 className="display-4 text-center">
+              {conditionImg}{" "}
+              <strong>
+                {temperature}°<span>c</span>
+              </strong>
+            </h2>
+            <h6 className="text-center">{condition}</h6>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div className="row">
+              <p className="col-sm-4 text-center">
+                <strong>Feelslike: </strong>
+                {feelslike}°c
+              </p>
+              <p className="col-sm-4 text-center">
+                <strong>Humidity: </strong>
+                {humidity}%
+              </p>
+              <p className="col-sm-4 text-center">
+                <strong>Wind: </strong>
+                {wind} km/h
+              </p>
+            </div>
+            <br />
+            <div className="jumbo-footer">
+              <p className="text-right">
+                <strong>Last Updated: </strong>
+                {lastUpdated}
+              </p>
+            </div>
           </div>
         </div>
       );

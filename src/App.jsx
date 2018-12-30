@@ -7,7 +7,17 @@ import backgrounds from "./backgrounds";
 
 class App extends Component {
   state = {
-    weatherData: {},
+    weatherData: {
+      city: "Praha",
+      country: "Czech Republic",
+      temperature: 10,
+      feelslike: 8,
+      condition: "Slight rain",
+      conditionImg: "",
+      humidity: 80,
+      wind: 15,
+      lastUpdated: "2018-12-30 13:00"
+    },
     backgrounds,
     backgroundImgUrl: "",
     fetchError: false,
@@ -23,25 +33,29 @@ class App extends Component {
 
   fetchData(city) {
     const API_KEY = "f7f0746423dc40efa80133843181912";
+    const FORECAST_DAYS = 7;
     const link = `http://api.apixu.com/v1/current.json?key=${API_KEY}&q=${city}`;
-    fetch(link)
-      .then(response => response.json())
+    const link2 = `http://api.apixu.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=${FORECAST_DAYS}`;
+    Promise.all([fetch(link), fetch(link2)])
+      .then(allResponses => allResponses.forEach(response => response.json()))
       .then(data => {
+        const currentWeather = data[0];
+        const forecast = data[1];
         this.setState({ fetchError: false, wasCityFound: true });
-        if (data.location === undefined)
+        if (currentWeather.location === undefined)
           return this.setState({ wasCityFound: false });
         else
           return this.setState({
             weatherData: {
-              city: data.location.name,
-              country: data.location.country,
-              temperature: data.current.temp_c,
-              feelslike: data.current.feelslike_c,
-              condition: data.current.condition.text,
-              conditionImg: data.current.condition.icon,
-              humidity: data.current.humidity,
-              wind: data.current.wind_kph,
-              lastUpdated: data.current.last_updated
+              city: currentWeather.location.name,
+              country: currentWeather.location.country,
+              temperature: currentWeather.current.temp_c,
+              feelslike: currentWeather.current.feelslike_c,
+              condition: currentWeather.current.condition.text,
+              conditionImg: currentWeather.current.condition.icon,
+              humidity: currentWeather.current.humidity,
+              wind: currentWeather.current.wind_kph,
+              lastUpdated: currentWeather.current.last_updated
             }
           });
       })
