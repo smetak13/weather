@@ -29,6 +29,10 @@
   margin-bottom: 0px;
 }
 
+.min-max-temp {
+  min-height: 100px;
+}
+
 .display-component {
   margin-top: 60px;
 }

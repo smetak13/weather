@@ -25,32 +25,31 @@ class App extends Component {
   fetchData(city) {
     const API_KEY = "f7f0746423dc40efa80133843181912";
     const FORECAST_DAYS = 7;
-    const link = `http://api.apixu.com/v1/current.json?key=${API_KEY}&q=${city}`;
-    const link2 = `http://api.apixu.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=${FORECAST_DAYS}`;
-    Promise.all([fetch(link), fetch(link2)])
-      .then(values => {
+    const link = `http://api.apixu.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=${FORECAST_DAYS}`;
+    fetch(link)
+      .then(response => response.json())
+      .then(data => {
         this.setState({ fetchError: false, wasCityFound: true });
-        values[0].json().then(data => {
-          if (data.location === undefined)
-            return this.setState({ wasCityFound: false });
-          else
-            return this.setState({
-              weatherData: {
-                city: data.location.name,
-                country: data.location.country,
-                temperature: data.current.temp_c,
-                feelslike: data.current.feelslike_c,
-                condition: data.current.condition.text,
-                conditionImg: data.current.condition.icon,
-                humidity: data.current.humidity,
-                wind: data.current.wind_kph,
-                lastUpdated: data.current.last_updated
-              }
-            });
-        });
-        values[1].json().then(data => {
-          this.setState({ forecastData: data });
-        });
+        if (data.location === undefined)
+          return this.setState({ wasCityFound: false });
+        else
+          return this.setState({
+            weatherData: {
+              city: data.location.name,
+              country: data.location.country,
+              temperature: data.current.temp_c,
+              feelslike: data.current.feelslike_c,
+              condition: data.current.condition.text,
+              conditionImg: data.current.condition.icon,
+              humidity: data.current.humidity,
+              wind: data.current.wind_kph,
+              lastUpdated: data.current.last_updated
+            },
+            forecastData: {
+              maxTemp: data.forecast.forecastday[0].day.maxtemp_c,
+              minTemp: data.forecast.forecastday[0].day.mintemp_c
+            }
+          });
       })
       .catch(error => {
         return this.setState({
@@ -90,7 +89,6 @@ class App extends Component {
       errorMessage,
       wasCityFound
     } = this.state;
-    console.log(weatherData);
     console.log(forecastData);
     return (
       <div
@@ -107,6 +105,7 @@ class App extends Component {
         <div className="display-component container">
           <WeatherDisplay
             weatherData={weatherData}
+            forecastData={forecastData}
             fetchError={fetchError}
             errorMessage={errorMessage}
             wasCityFound={wasCityFound}

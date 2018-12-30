@@ -14,6 +14,7 @@ class WeatherDisplay extends Component {
       wind,
       lastUpdated
     } = this.props.weatherData;
+    const { maxTemp, minTemp } = this.props.forecastData;
     const { fetchError, errorMessage, wasCityFound } = this.props;
     if (fetchError)
       return (
@@ -50,11 +51,16 @@ class WeatherDisplay extends Component {
             <h6 className="text-center">{condition}</h6>
             <br />
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+            <div className="row min-max-temp">
+              <div className="col-sm-6 text-center">
+                <h6>Daily max:</h6>
+                <h3>{maxTemp}</h3>
+              </div>
+              <div className="col-sm-6 text-center">
+                <h6>Daily min:</h6>
+                <h3>{minTemp}</h3>
+              </div>
+            </div>
             <br />
             <div className="row">
               <p className="col-sm-4 text-center">
