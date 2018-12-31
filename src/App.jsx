@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Introduction from "./components/Introduction";
 import Form from "./components/Form";
 import WeatherDisplay from "./components/WeatherDisplay";
 import Footer from "./components/Footer";
@@ -13,7 +14,8 @@ class App extends Component {
     backgroundImgUrl: "",
     fetchError: false,
     errorMessage: undefined,
-    wasCityFound: true
+    wasCityFound: true,
+    wereDataSearched: false
   };
 
   getData = e => {
@@ -29,7 +31,11 @@ class App extends Component {
     fetch(link)
       .then(response => response.json())
       .then(data => {
-        this.setState({ fetchError: false, wasCityFound: true });
+        this.setState({
+          fetchError: false,
+          wasCityFound: true,
+          wereDataSearched: true
+        });
         if (data.location === undefined)
           return this.setState({ wasCityFound: false });
         else
@@ -38,16 +44,23 @@ class App extends Component {
               city: data.location.name,
               country: data.location.country,
               temperature: data.current.temp_c,
-              feelslike: data.current.feelslike_c,
               condition: data.current.condition.text,
               conditionImg: data.current.condition.icon,
-              humidity: data.current.humidity,
-              wind: data.current.wind_kph,
               lastUpdated: data.current.last_updated
             },
             forecastData: {
               maxTemp: data.forecast.forecastday[0].day.maxtemp_c,
-              minTemp: data.forecast.forecastday[0].day.mintemp_c
+              minTemp: data.forecast.forecastday[0].day.mintemp_c,
+              maxTemp1: data.forecast.forecastday[1].day.maxtemp_c,
+              minTemp1: data.forecast.forecastday[1].day.mintemp_c,
+              maxTemp2: data.forecast.forecastday[2].day.maxtemp_c,
+              minTemp2: data.forecast.forecastday[2].day.mintemp_c,
+              forecastConditionImg:
+                data.forecast.forecastday[0].day.condition.icon,
+              forecastConditionImg1:
+                data.forecast.forecastday[1].day.condition.icon,
+              forecastConditionImg2:
+                data.forecast.forecastday[2].day.condition.icon
             }
           });
       })
@@ -87,35 +100,58 @@ class App extends Component {
       forecastData,
       fetchError,
       errorMessage,
-      wasCityFound
+      wasCityFound,
+      wereDataSearched
     } = this.state;
     console.log(forecastData);
-    return (
-      <div
-        className="App bg-dark"
-        style={{
-          backgroundImage: backgroundImgUrl,
-          backgroundSize: "cover",
-          transition: "4s"
-        }}
-      >
-        <div className="form-component bg-dark text-right">
-          <Form getData={this.getData} />
+    if (!wereDataSearched)
+      return (
+        <div
+          className="App bg-dark"
+          style={{
+            backgroundImage: backgroundImgUrl,
+            backgroundSize: "cover",
+            transition: "4s"
+          }}
+        >
+          <div className="form-component bg-dark text-right">
+            <Form getData={this.getData} />
+          </div>
+          <div className="container">
+            <Introduction />
+          </div>
+          <div className="footer-component fixed-bottom bg-dark text-right">
+            <Footer />
+          </div>
         </div>
-        <div className="display-component container">
-          <WeatherDisplay
-            weatherData={weatherData}
-            forecastData={forecastData}
-            fetchError={fetchError}
-            errorMessage={errorMessage}
-            wasCityFound={wasCityFound}
-          />
+      );
+    else
+      return (
+        <div
+          className="App bg-dark"
+          style={{
+            backgroundImage: backgroundImgUrl,
+            backgroundSize: "cover",
+            transition: "4s"
+          }}
+        >
+          <div className="form-component bg-dark text-right">
+            <Form getData={this.getData} />
+          </div>
+          <div className="container">
+            <WeatherDisplay
+              weatherData={weatherData}
+              forecastData={forecastData}
+              fetchError={fetchError}
+              errorMessage={errorMessage}
+              wasCityFound={wasCityFound}
+            />
+          </div>
+          <div className="footer-component fixed-bottom bg-dark text-right">
+            <Footer />
+          </div>
         </div>
-        <div className="footer-component fixed-bottom bg-dark text-right">
-          <Footer />
-        </div>
-      </div>
-    );
+      );
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import fullDate from "../date";
+import { fullDate, getNextDays } from "../date";
 
 class WeatherDisplay extends Component {
   render() {
@@ -7,14 +7,21 @@ class WeatherDisplay extends Component {
       city,
       country,
       temperature,
-      feelslike,
       condition,
       conditionImg,
-      humidity,
-      wind,
       lastUpdated
     } = this.props.weatherData;
-    const { maxTemp, minTemp } = this.props.forecastData;
+    const {
+      maxTemp,
+      minTemp,
+      maxTemp1,
+      minTemp1,
+      maxTemp2,
+      minTemp2,
+      forecastConditionImg,
+      forecastConditionImg1,
+      forecastConditionImg2
+    } = this.props.forecastData;
     const { fetchError, errorMessage, wasCityFound } = this.props;
     if (fetchError)
       return (
@@ -43,7 +50,7 @@ class WeatherDisplay extends Component {
             </h5>
             <p className="text-center">{fullDate}</p>
             <h2 className="display-4 text-center">
-              <img src={conditionImg} alt="" />
+              <img className="m-2" src={conditionImg} alt="" />
               <strong>
                 {temperature}°<span>c</span>
               </strong>
@@ -51,32 +58,62 @@ class WeatherDisplay extends Component {
             <h6 className="text-center">{condition}</h6>
             <br />
             <br />
-            <div className="row min-max-temp">
-              <div className="col-sm-6 text-center">
-                <h6>Daily max:</h6>
-                <h3>{maxTemp}</h3>
-              </div>
-              <div className="col-sm-6 text-center">
-                <h6>Daily min:</h6>
-                <h3>{minTemp}</h3>
-              </div>
-            </div>
-            <br />
             <div className="row">
-              <p className="col-sm-4 text-center">
-                <strong>Feelslike: </strong>
-                {feelslike}°c
-              </p>
-              <p className="col-sm-4 text-center">
-                <strong>Humidity: </strong>
-                {humidity}%
-              </p>
-              <p className="col-sm-4 text-center">
-                <strong>Wind: </strong>
-                {wind} km/h
-              </p>
+              <div className="text-center col-sm-4">
+                <h5 className="date text-center">
+                  {getNextDays(0)}
+                  <div>
+                    <img src={forecastConditionImg} alt="" />
+                  </div>
+                </h5>
+                <div className="day">
+                  <div className="text-right">
+                    <h6>Daily max:</h6>
+                    <h3>{maxTemp}</h3>
+                  </div>
+                  <div className="text-left">
+                    <h6>Daily min:</h6>
+                    <h3>{minTemp}</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center col-sm-4">
+                <h5 className="date text-center">
+                  {getNextDays(1)}
+                  <div>
+                    <img src={forecastConditionImg1} alt="" />
+                  </div>
+                </h5>
+                <div className="day">
+                  <div className="text-right">
+                    <h6>Daily max:</h6>
+                    <h3>{maxTemp1}</h3>
+                  </div>
+                  <div className="text-left">
+                    <h6>Daily min:</h6>
+                    <h3>{minTemp1}</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center col-sm-4">
+                <h5 className="date text-center">
+                  {getNextDays(2)}
+                  <div>
+                    <img src={forecastConditionImg2} alt="" />
+                  </div>
+                </h5>
+                <div className="day">
+                  <div className="text-right">
+                    <h6>Daily max:</h6>
+                    <h3>{maxTemp2}</h3>
+                  </div>
+                  <div className="text-left">
+                    <h6>Daily min:</h6>
+                    <h3>{minTemp2}</h3>
+                  </div>
+                </div>
+              </div>
             </div>
-            <br />
             <div className="jumbo-footer">
               <p className="text-right">
                 <strong>Last Updated: </strong>

@@ -30,8 +30,13 @@ function timeZeroPadding(time) {
   return time;
 }
 
-const fullDate = `${day} ${date}. ${month} ${timeZeroPadding(
+export const fullDate = `${day} ${date}. ${month} ${timeZeroPadding(
   hour
 )}:${timeZeroPadding(minute)}`;
 
-export default fullDate;
+export const getNextDays = number => {
+  let day = new Date();
+  let nextDay = new Date(day);
+  nextDay.setDate(day.getDate() + number);
+  return `${nextDay.getDate()}. ${months[nextDay.getMonth()]}`;
+};
