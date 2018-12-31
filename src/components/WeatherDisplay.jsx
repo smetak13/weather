@@ -61,7 +61,7 @@ class WeatherDisplay extends Component {
             <div className="row">
               <div className="text-center col-sm-4">
                 <h5 className="date text-center">
-                  {getNextDays(0)}
+                  Today
                   <div>
                     <img src={forecastConditionImg} alt="" />
                   </div>
