@@ -1,7 +1,29 @@
 import React, { Component } from "react";
-import { fullDate, getNextDays } from "../date";
 
 class WeatherDisplay extends Component {
+  state = {
+    months: [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december"
+    ]
+  };
+  getNextDays = number => {
+    let day = new Date(this.props.currentTime);
+    let nextDay = new Date(day);
+    nextDay.setDate(day.getDate() + number);
+    return `${nextDay.getDate()}. ${this.state.months[nextDay.getMonth()]}`;
+  };
+
   render() {
     const {
       city,
@@ -22,7 +44,7 @@ class WeatherDisplay extends Component {
       forecastConditionImg1,
       forecastConditionImg2
     } = this.props.forecastData;
-    const { fetchError, errorMessage, wasCityFound } = this.props;
+    const { fetchError, errorMessage, wasCityFound, currentTime } = this.props;
     if (fetchError)
       return (
         <div className="jumbo-error">
@@ -48,7 +70,7 @@ class WeatherDisplay extends Component {
             <h5 className="text-center">
               {city} <small> - {country}</small>
             </h5>
-            <p className="text-center">{fullDate}</p>
+            <p className="text-center">{currentTime}</p>
             <h2 className="display-4 text-center">
               <img className="m-2" src={conditionImg} alt="" />
               <strong>
@@ -79,7 +101,7 @@ class WeatherDisplay extends Component {
               </div>
               <div className="text-center col-sm-4">
                 <h5 className="date text-center">
-                  {getNextDays(1)}
+                  {this.getNextDays(1)}
                   <div>
                     <img src={forecastConditionImg1} alt="" />
                   </div>
@@ -97,7 +119,7 @@ class WeatherDisplay extends Component {
               </div>
               <div className="text-center col-sm-4">
                 <h5 className="date text-center">
-                  {getNextDays(2)}
+                  {this.getNextDays(2)}
                   <div>
                     <img src={forecastConditionImg2} alt="" />
                   </div>

@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     weatherData: {},
     forecastData: {},
+    currentTime: "",
     backgrounds,
     backgroundImgUrl: "",
     fetchError: false,
@@ -23,6 +24,16 @@ class App extends Component {
     const city = e.target.elements.city.value;
     this.fetchData(city);
   };
+
+  fetchTime(timeZone) {
+    const API_KEY = "YKWEVTP2AJHD";
+    const link = `http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}&format=json&by=zone&zone=${timeZone}`;
+    fetch(link)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ currentTime: data.formatted });
+      });
+  }
 
   fetchData(city) {
     const API_KEY = "f7f0746423dc40efa80133843181912";
@@ -42,6 +53,7 @@ class App extends Component {
           return this.setState({
             weatherData: {
               city: data.location.name,
+              timeZone: data.location.tz_id,
               country: data.location.country,
               temperature: data.current.temp_c,
               condition: data.current.condition.text,
@@ -60,10 +72,12 @@ class App extends Component {
               forecastConditionImg1:
                 data.forecast.forecastday[1].day.condition.icon,
               forecastConditionImg2:
-                data.forecast.forecastday[2].day.condition.icon
+                data.forecast.forecastday[2].day.condition.icon,
+              data: data
             }
           });
       })
+      .then(() => this.fetchTime(this.state.weatherData.timeZone))
       .catch(error => {
         return this.setState({
           fetchError: true,
@@ -98,12 +112,12 @@ class App extends Component {
       backgroundImgUrl,
       weatherData,
       forecastData,
+      currentTime,
       fetchError,
       errorMessage,
       wasCityFound,
       wereDataSearched
     } = this.state;
-    console.log(forecastData);
     if (!wereDataSearched)
       return (
         <div
@@ -142,6 +156,7 @@ class App extends Component {
             <WeatherDisplay
               weatherData={weatherData}
               forecastData={forecastData}
+              currentTime={currentTime}
               fetchError={fetchError}
               errorMessage={errorMessage}
               wasCityFound={wasCityFound}
