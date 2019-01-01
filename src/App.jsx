@@ -77,7 +77,10 @@ class App extends Component {
             }
           });
       })
-      .then(() => this.fetchTime(this.state.weatherData.timeZone))
+      .then(() => {
+        this.fetchTime(this.state.weatherData.timeZone);
+        this.changeBackground();
+      })
       .catch(error => {
         return this.setState({
           fetchError: true,
@@ -102,9 +105,6 @@ class App extends Component {
 
   componentDidMount() {
     this.changeBackground();
-    setInterval(() => {
-      this.changeBackground();
-    }, 10000);
   }
 
   render() {
