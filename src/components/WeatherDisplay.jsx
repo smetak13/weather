@@ -33,17 +33,6 @@ class WeatherDisplay extends Component {
       conditionImg,
       lastUpdated
     } = this.props.weatherData;
-    const {
-      maxTemp,
-      minTemp,
-      maxTemp1,
-      minTemp1,
-      maxTemp2,
-      minTemp2,
-      forecastConditionImg,
-      forecastConditionImg1,
-      forecastConditionImg2
-    } = this.props.forecastData;
     const { fetchError, errorMessage, wasCityFound, currentTime } = this.props;
     if (fetchError)
       return (
@@ -81,14 +70,14 @@ class WeatherDisplay extends Component {
             <br />
             <br />
             <div className="row">
-              <div className="text-center col-sm-4">
+              {/* <div className="text-center col-sm-4">
                 <h5 className="date text-center">
                   Today
                   <div>
                     <img src={forecastConditionImg} alt="" />
                   </div>
-                </h5>
-                <div className="day">
+                </h5> */}
+                {/* <div className="day">
                   <div className="text-right">
                     <h6>Daily max:</h6>
                     <h3>{maxTemp}</h3>
@@ -97,9 +86,9 @@ class WeatherDisplay extends Component {
                     <h6>Daily min:</h6>
                     <h3>{minTemp}</h3>
                   </div>
-                </div>
-              </div>
-              <div className="text-center col-sm-4">
+                </div> */}
+              {/* </div> */}
+              {/* <div className="text-center col-sm-4">
                 <h5 className="date text-center">
                   {this.getNextDays(1)}
                   <div>
@@ -134,7 +123,7 @@ class WeatherDisplay extends Component {
                     <h3>{minTemp2}</h3>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="jumbo-footer">
               <p className="text-right">

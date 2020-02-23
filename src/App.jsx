@@ -9,7 +9,6 @@ import backgrounds from "./backgrounds";
 class App extends Component {
   state = {
     weatherData: {},
-    forecastData: {},
     currentTime: "",
     backgrounds,
     backgroundImgUrl: "",
@@ -36,9 +35,8 @@ class App extends Component {
   }
 
   fetchData(city) {
-    const API_KEY = "f7f0746423dc40efa80133843181912";
-    const FORECAST_DAYS = 7;
-    const link = `http://api.apixu.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=${FORECAST_DAYS}`;
+    const API_KEY = "8a3c715b7cab0c9950a816c544a25fce";
+    const link = `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${city}`;
     fetch(link)
       .then(response => response.json())
       .then(data => {
@@ -53,28 +51,13 @@ class App extends Component {
           return this.setState({
             weatherData: {
               city: data.location.name,
-              timeZone: data.location.tz_id,
+              timeZone: data.location.timezone_id,
               country: data.location.country,
-              temperature: data.current.temp_c,
-              condition: data.current.condition.text,
-              conditionImg: data.current.condition.icon,
-              lastUpdated: data.current.last_updated
+              temperature: data.current.temperature,
+              condition: data.current.weather_descriptions[0],
+              conditionImg: data.current.weather_icons[0],
+              lastUpdated: data.current.observation_time
             },
-            forecastData: {
-              maxTemp: data.forecast.forecastday[0].day.maxtemp_c,
-              minTemp: data.forecast.forecastday[0].day.mintemp_c,
-              maxTemp1: data.forecast.forecastday[1].day.maxtemp_c,
-              minTemp1: data.forecast.forecastday[1].day.mintemp_c,
-              maxTemp2: data.forecast.forecastday[2].day.maxtemp_c,
-              minTemp2: data.forecast.forecastday[2].day.mintemp_c,
-              forecastConditionImg:
-                data.forecast.forecastday[0].day.condition.icon,
-              forecastConditionImg1:
-                data.forecast.forecastday[1].day.condition.icon,
-              forecastConditionImg2:
-                data.forecast.forecastday[2].day.condition.icon,
-              data: data
-            }
           });
       })
       .then(() => {
@@ -111,7 +94,6 @@ class App extends Component {
     const {
       backgroundImgUrl,
       weatherData,
-      forecastData,
       currentTime,
       fetchError,
       errorMessage,
@@ -155,7 +137,6 @@ class App extends Component {
           <div className="container">
             <WeatherDisplay
               weatherData={weatherData}
-              forecastData={forecastData}
               currentTime={currentTime}
               fetchError={fetchError}
               errorMessage={errorMessage}
